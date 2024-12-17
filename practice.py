@@ -217,5 +217,64 @@ print(python.find("Java"))  # 문자열 찾기 . 없으면 -1
 print(python.count("n"))  # 몇 번 나왔는가
 
 # 문자열 포맷
-print("나는 %d살입니다." % 20)  # 서식문자
-print("나는 %s을 좋아해요." % "파이썬")
+# (서식문자)
+print("나는 %d살입니다." % 20)  # 숫자
+print("나는 %s을 좋아해요." % "파이썬")  # 문자열
+print("Apple은 %c을 좋아해요." % "A")  # 문자
+print("나는 %s살입니다." % 20)  # %s는 숫자들어가도 출력함
+print("나는 %s색과 %s색을 좋아해요" % ("파란", "빨간"))  # 다중 포맷
+
+
+# (중괄호)
+print("나는 {}살입니다.".format(20))
+print("나는 {}색과 {}색을 좋아해요.".format("파란", "빨간"))  # 다중 포맷"
+print("나는 {0}색과 {1}색을 좋아해요.".format("파란", "빨간"))  # 다중 포맷- 인덱스
+print("나는 {1}색과 {0}색을 좋아해요.".format("파란", "빨간"))
+
+# (중괄호-특정 값 기입)
+print("나는 {age}살이며 {color}색을 좋아해요.".format(age=20, color="빨간"))
+print("나는 {age}살이며 {color}색을 좋아해요.".format(color="빨간", age=20))
+print("나는 {age}살이며 {color}색을 좋아해요.".format(color="빨간", age=20))
+
+# 변수기입
+age = 20
+color = "빨간"
+print(f"나는 {age}살이며 {color}색을 좋아해요.")
+
+# escape seqence : 프로그램상 표현할 수 없는 것을 표현
+print("백문이 불여일견\n 백견이 불여일타")  # 개행
+print("저는 \"나도코딩\"입니다.")  # 큰따옴표
+print("저는 \'나도코딩\'입니다.")  # 작은따옴표
+print("c:\\Users\\sky44\\PythonWorkspace>")  # 백슬래시
+print("Red Apple\rPine")  # 커서맨앞+insert기능 PineApple
+print("Redd\bAppple")  # 백스페이스 기능
+print("Red\tApple")  # 탭 기능
+
+'''
+Quiz) 사이트별로 비밀번호를 만들어주는 프로그램을 작성하시오
+
+예) http://naver.com
+규칙1: http://부분은 제외 => naver.com
+규칙2: 처음 만나는 점(.)이후 부분은 제외 => naver
+규칙 3: 남은 글자 중 처음 세자리 + 글자 갯수 + 글자 내 'e' 갯수 + "!"
+              (nav)                 (5)          (1)           (!)
+예) 생성된 비밀번호 : nav51!
+
+설계:
+1. 제거 - replace
+2. 이후+제거 - slicing
+3. 출력
+'''
+
+site = "http://naver.com"
+sidx = site.find('//')+2
+eidx = site.find('.')
+possite = site[sidx:eidx]
+print(possite[0:3]+str(len(possite))+str(site.count('e'))+"!")
+
+# 답안
+url = "http://naver.com"
+my_str = url.replace("http://", "")
+my_str = my_str[:my_str.index(".")]  # my_str[0:5]
+password = my_str[:3] + str(len(my_str)) + str(my_str.count("e"))+"!"
+print("{0} 의 비밀번호는 {1}입니다".format(url, password))
