@@ -32,12 +32,12 @@ print(not (5 > 10))
 """
 <string, numeric, boolean 잇기>-----------------------------------------------------------------------------
 - 애완동물을 소개해 주세요~
-1. 잇기 : 
+1. 잇기 :
 1) + 사용 : 같은 type으로 형변환 필요
-2) , 사용 : 자동 띄어쓰기 하나 들어감. 다른 data type이어도 이을 수 있음(형변환 필요없음). 
-2. 형변환 : 
+2) , 사용 : 자동 띄어쓰기 하나 들어감. 다른 data type이어도 이을 수 있음(형변환 필요없음).
+2. 형변환 :
 1) ex) str()
-2) 사용이유 : ex) 문자열에는 문자열만 이을 수 있음.  
+2) 사용이유 : ex) 문자열에는 문자열만 이을 수 있음.
 """
 name = "연탄이"  # 문자형
 animal = "강아지"  # 문자형
@@ -162,7 +162,7 @@ Quiz ) 당신은 코딩 스터디를 새로만들었음.
 설계
 
 1. 출력문
-1) 4~28일 랜덤 
+1) 4~28일 랜덤
 '''
 
 # 1.1)
@@ -274,7 +274,176 @@ print(possite[0:3]+str(len(possite))+str(site.count('e'))+"!")
 
 # 답안
 url = "http://naver.com"
+# 1
 my_str = url.replace("http://", "")
+# 2
 my_str = my_str[:my_str.index(".")]  # my_str[0:5]
 password = my_str[:3] + str(len(my_str)) + str(my_str.count("e"))+"!"
+# 3
 print("{0} 의 비밀번호는 {1}입니다".format(url, password))
+
+# <리스트>-----------------------------------------------------------------------------
+
+# 지하철 칸별로 10명, 20명, 30명
+subway = 10
+subway = 20
+subway = 30
+subway = [10, 20, 30]
+print(subway)
+
+# 리스트 선언
+subway = ["유재석", "조세호", "박명수"]
+print(subway)
+
+# 리스트 인덱스
+print(subway.index("조세호"))  # .조세호씨가 몇 번째 칸에 타고있는가?  1
+
+# append
+subway.append("하하")  # 하하씨가 다음 정류장에서 다음 칸에 탐
+print(subway)
+
+# insert
+subway.insert(1, "정형돈")  # 정형돈씨를 유재석 / 조세호 사이에 태워봄
+print(subway)
+
+# pop
+print(subway.pop())  # 지하철에 있는 사람을 한 명씩 뒤에서 꺼냄
+
+# count
+subway.append("유재석")
+print(subway)
+print(subway.count("유재석"))
+
+# 정렬
+num_list = [5, 2, 4, 3, 1]
+num_list.sort()
+print(num_list)
+
+# 순서 뒤집기
+num_list.reverse()
+print(num_list)
+
+# 모두 삭제
+# num_list.clear()
+# print(num_list)
+
+# 다양한 자료형 함께 사용
+mix_list = ["조세호", 20, True]
+print(mix_list)
+
+# 리스트 확장
+num_list.extend(mix_list)
+print(num_list)
+
+# <딕셔너리>-----------------------------------------------------------------------------
+# 키-밸류 사용시
+
+cabinet = {3: "유재석", 100: "김태호"}
+# 첨자-키
+print(cabinet[3])
+print(cabinet[100])
+
+# get
+print(cabinet.get(3))
+
+# 첨자는 없는것 가져오면 에러, get은 None return
+print(cabinet.get(5, "사용가능"))  # 있으면 사용가능
+# print(cabinet[5])
+print("hi")
+
+# 존재 여부(in)
+print(3 in cabinet)  # True
+print(5 in cabinet)  # False
+
+cabinet = {"A-3": "유재석", "B-100": "김태호"}
+print(cabinet["A-3"])
+print(cabinet["B-100"])
+
+# 딕셔너리 추가 - 그냥 키-밸류 넣기
+print(cabinet)
+cabinet["A-3"] = "김종국"
+cabinet["C-20"] = "조세호"
+print(cabinet)
+
+# del- 키(+밸류) 삭제
+del cabinet["A-3"]
+print(cabinet)
+
+# key만 출력
+print(cabinet.keys())
+
+# value만 출력
+print(cabinet.values())
+
+# key, value 쌍으로 출력
+print(cabinet.items())
+
+# 딕셔너리 삭제
+cabinet.clear()
+print(cabinet)
+
+# <튜플>-----------------------------------------------------------------------------
+# 리스트와 달리 추가,삭제가 안됨. 속도는 빠름
+
+menu = ("돈까스", "치즈까스")
+print(menu[0])
+print(menu[1])
+
+# menu.add("생선까스")
+
+name = "김종국"
+age = 20
+hobby = "코딩"
+print(name, age, hobby)
+
+# 서로 다른 변수에 값을 한번에 넣기 가능
+(name, age, hobby) = ("김종국", 20, "코딩")
+print(name, age, hobby)
+
+# <집합(set)>-----------------------------------------------------------------------------
+# 중복 인식X. 순서 없음
+
+# 중복 X
+# {} 사용법
+my_set = {1, 2, 3, 3, 3}
+print(my_set)
+
+# set사용법
+java = {"유재석", "김태호", "양세형"}
+python = set(["유재석", "박명수"])
+
+# 교집합 (&, intersaction)
+print(java & python)
+print(java.intersection(python))
+
+# 합집합 (|, union)
+print(java | python)
+print(java.union(python))
+
+# 차집합(-, difference)
+print(java - python)
+print(java.difference(python))
+
+# 추가 add
+python.add("김태호")  # python 할 줄 아는사람이 늘어남
+print(python)
+
+# 삭제 remove
+python.remove("김태호")
+print(python)
+
+# <자료구조(list,tuple,dictionary,set)의 변경>-----------------------------------------------------------------------------
+
+menu = {"커피", "우유", "주스"}
+print(menu, type(menu))
+
+# set - > 리스트 형변환
+menu = list(menu)
+
+# ->tuple
+menu = tuple(menu)
+
+# -> set
+menu = set(menu)
+
+print(menu, type(menu))
