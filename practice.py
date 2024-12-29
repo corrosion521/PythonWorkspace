@@ -461,7 +461,7 @@
 # 2) sample은  리스트 요소 아닌 리스트로 반환
 # 아래 퀴즈 참조 (513)
 
-'''
+"""
 Quiz) 당신의 학교에서는 파이썬 코딩대회를 주최합니다.
 참석률을 높이기 위해 댓글 이벤트를 진행하기로 했습니다.
 댓글 작성자들 중에 추첨을 통해 1명은 치킨, 3명은 커피 쿠폰을 받게 됩니다.
@@ -508,7 +508,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 
 ~~~
 
-'''
+"""
 
 # # 1
 # s1 = []
@@ -638,7 +638,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # students = [i.upper()for i in students]  # 대문자 변환
 # print(students)
 
-'''
+"""
 # QUIZ
 당신은 Cocoa 서비스를 이용하는 택시 기사님입니다.
 50명의 승객과 매칭 기회가 있을 때, 총 탑승 승객 수를 구하는 프로그램을 작성하시오.
@@ -670,7 +670,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 1. 50명 승객 소요시간 배정 // list문, [0] - 1번째, 50개의 난수 for문으로 승객 list 생성
 2. for문 돌리면서, 5~15인 것만 [O]로 출력
 3. 총 탑승 승객 출력
-'''
+"""
 # # 0
 # from random import *
 # # 1
@@ -832,7 +832,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # print("남은 총 : {0}".format(gun))
 
 
-'''
+"""
 # ~~QUIZ~~~
 표준 체중을 구하는 프로그램을 작성하시오
 
@@ -869,7 +869,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 1-2) 반올림(둘째) // round
 3. 함수호출
 
-'''
+"""
 
 # # 2
 
@@ -950,20 +950,142 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # 5) 1+2+3+4
 # 6) 소수점
 
+# # 1)
+# # 빈 자리는 빈공간, 오른쪽 정렬하되, 총 10자리 공간 확보
+# print("{0: >10}".format(500))
+# # 2) 양수일 땐 +로 표시, 음수일 땐 -로 표시
+# print("{0: >+10}".format(500))
+# print("{0: >+10}".format(-500))
+# # 3) 왼쪽 정렬, 빈칸 _로 채움
+# print("{0:_<+10}".format(500))
+# # 4)
+# print("{0:,}".format(100000000000))
+# print("{0:+,}".format(100000000000))
+# # 5)
+# # 3자리마다 콤마, 부호, 자릿수 확보 , 빈자리는 ^
+# print("{0:^<+30,}".format(100000000000))
+# # 6)
+# print("{0:f}".format(5 / 3))
+# print("{0:.2f}".format(5 / 3))
+
+# 3. 파일 입출력
+# 1) 파일 생성
+# 2) 파일 내용 추가
+# 3) 파일 읽기
+
 # 1)
-# 빈 자리는 빈공간, 오른쪽 정렬하되, 총 10자리 공간 확보
-print("{0: >10}".format(500))
-# 2) 양수일 땐 +로 표시, 음수일 땐 -로 표시
-print("{0: >+10}".format(500))
-print("{0: >+10}".format(-500))
-# 3) 왼쪽 정렬, 빈칸 _로 채움
-print("{0:_<+10}".format(500))
-# 4)
-print("{0:,}".format(100000000000))
-print("{0:+,}".format(100000000000))
-# 5)
-# 3자리마다 콤마, 부호, 자릿수 확보 , 빈자리는 ^
-print("{0:^<+30,}".format(100000000000))
-# 6)
-print("{0:f}".format(5/3))
-print("{0:.2f}".format(5/3))
+# score_file = open("score.txt", "w", encoding="utf8")
+# print("수학 :0", file=score_file)
+# print("영어 :50", file=score_file)
+# score_file.close()
+# 2)
+# score_file = open("score.txt", "a", encoding="utf8")
+# score_file.write("과학 : 80")
+# score_file.write("\n코딩 : 100")
+# score_file.close()
+# 3)
+score_file = open("score.txt", "r", encoding="utf8")
+# a. print(score_file.read()) # 파일 전체 읽기
+# b.
+# print(score_file.readline(), end="")  # 줄별로 읽기, 한 줄 읽고 커서 다음줄로 이동
+# print(score_file.readline(), end="")  # 줄별로 읽기, 한 줄 읽고 커서 다음줄로 이동
+# print(score_file.readline(), end="")  # 줄별로 읽기, 한 줄 읽고 커서 다음줄로 이동
+# print(score_file.readline(), end="")  # 줄별로 읽기, 한 줄 읽고 커서 다음줄로 이동
+# score_file.close()
+# c. b의 반복문 버전
+# while True:
+#     line = score_file.readline()
+#     if not line:
+#         break
+#     print(line, end="")
+# score_file.close()
+# d. 리스트로 처리
+# lines = score_file.readlines()
+# for line in lines:
+#     print(line, end="")
+# score_file.close()
+
+# 4. pickle
+# 1) dump(덮어쓰기)
+# 2) load(불러오기)
+# import pickle
+
+# 1)
+# profile_file = open("profile.pickle", "wb")  # 피클은 바이너리(b)로
+# profile = {
+#     "이름": "박명수",
+#     "나이": 30,
+#     "취미": ["축구", "골프", "코딩"],
+# }  # 저장할 내용
+# print(profile)
+# pickle.dump(profile, profile_file)  # profile의 정보를 file에 저장
+# profile_file.close()
+
+# 2)
+# profile_file = open("profile.pickle", "rb")
+# profile = pickle.load(profile_file)
+# print(profile)
+# profile_file.close()
+
+# 5. with : 짧은 라인, close 생략
+# 1) pickle - load : pickele 사용시 파일 close하지 않아도됨
+# 2) txt - write : 마찬가지
+# 3) txt - read : 마찬가지
+# import pickle
+
+# # 1)
+# with open("profile.pickle", "rb") as profile_file:
+#     print(pickle.load(profile_file))
+# # 2)
+# with open("study.txt", "w", encoding="utf-8") as study_file:
+#     study_file.write("파이썬을 열심히 공부하고 있어요")
+# # 3)
+# with open("study.txt", "r", encoding="utf-8") as study_file:
+#     print(study_file.read())
+
+"""
+# QUIZ
+당신의 회사에서는 매주 1회 작성해야 하는 보고서가 있습니다.
+보고서는 항상 아래와 같은 형태로 출력되어야 합니다.
+
+- X 주차 주간보고 - 
+부서 : 
+이름 :
+업무 요약 :
+
+1주차부터 50주차까지의 보고서 파일을 만드는 프로그램을 작성하시오.
+
+조건 : 파일명은 '1주차.txt', '2주차.txt',...와 같이 만듭니다.
+
+<내역>
+요약 : X가 다른(X주차 ) 보고서 파일 50개 만들어라
+해석 :
+1. 당신의 회사에서는 매주 1회 작성해야 하는 보고서가 있습니다.
+보고서는 항상 아래와 같은 형태로 출력되어야 합니다.
+// 주차 별 (1,2,3..)보고서 파일 생성
+2. 1주차부터 50주차까지의 보고서 파일을 만드는 프로그램을 작성하시오.
+// 1~50
+
+<처리>
+요약 : for문 + file write
+설계 :
+1. 50주차까지 숫자 달라짐 (제목, 내용의 ~주차) // for 1 ~50 
+1) 보고서 파일 내용 WRITE // WITH pickle dump
++확인용
+2)  
+"""
+import pickle
+
+# # 1
+# for i in range(1, 51):
+#     # 1)
+#     with open("{0}주차.txt".format(i), "wb") as file:
+#         txt = "- {0} 주차 주간보고 -\n부서 :\n이름:\n업무요약:\n".format(i)
+#         # print(txt)
+#         pickle.dump(txt, file)
+
+# 2)
+for i in range(1, 51):
+    # 1)
+    with open("{0}주차.txt".format(i), "rb") as file:
+        print(pickle.load(file))
