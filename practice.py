@@ -984,7 +984,8 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # score_file.write("\n코딩 : 100")
 # score_file.close()
 # 3)
-score_file = open("score.txt", "r", encoding="utf8")
+# import pickle
+# score_file = open("score.txt", "r", encoding="utf8")
 # a. print(score_file.read()) # 파일 전체 읽기
 # b.
 # print(score_file.readline(), end="")  # 줄별로 읽기, 한 줄 읽고 커서 다음줄로 이동
@@ -1074,7 +1075,6 @@ score_file = open("score.txt", "r", encoding="utf8")
 +확인용
 2)  
 """
-import pickle
 
 # # 1
 # for i in range(1, 51):
@@ -1084,8 +1084,77 @@ import pickle
 #         # print(txt)
 #         pickle.dump(txt, file)
 
-# 2)
-for i in range(1, 51):
-    # 1)
-    with open("{0}주차.txt".format(i), "rb") as file:
-        print(pickle.load(file))
+# # 2)
+# for i in range(1, 51):
+#     # 1)
+#     with open("{0}주차.txt".format(i), "rb") as file:
+#         print(pickle.load(file))
+# 정답
+# for i in range(1, 51):
+#     with open(str(i) + "주차.txt", "w", encoding="utf8") as report_file:
+#         report_file.write("-{0} 주차 주간보고 -".format(i))
+#         report_file.write("\n부서:")
+#         report_file.write("\n이름 :")
+#         report_file.write("\n업무 요약:")
+
+# 평가
+# 거의 비슷. 내생각엔 문자열에 .format달아주는게 더 편한듯.
+
+
+# <클래스>-------------------------------------------------------------------------------
+# ★  개념
+# - 클래스(자동차 틀), 객체(자동차), 멤버변수(연료, 부품), 메서드(주행, 브레이크)
+# 0) 클래스 없이는 객체 생성 시 중복 소스 및 비효율 변수선언 발생(효율성 저하)
+# 1) 클래스 선언 - 객체 생성
+# a. 클래스 paramater만큼 객체 생성시 argument 값 필요
+
+# 0)
+# 마린 : 공격 유닛, 군인. 총을 쏠 수 있음
+# 비효율 변수
+name = "마린"  # 유닛의 이름
+hp = 40  # 유닛의 체력
+damage = 5  # 유닛의 공격력
+# 중복 소스
+print("{0} 유닛이 생성되었습니다".format(name))
+print("체력 {0}, 공격력 {1}\n".format(hp, damage))
+
+# 탱크 : 공격 유닛, 탱크. 포를 쏠 수  있는데, 일반모드 / 시즈모드.
+# 비효율 변수
+tank_name = "탱크"
+tank_hp = 150
+tank_damage = 35
+# 중복 소스
+print("{0} 유닛이 생성되었습니다".format(tank_name))
+print("체력 {0}, 공격력 {1}\n".format(tank_hp, tank_damage))
+
+
+def attack(name, location, damage):
+    print("{0} : {1} 방향으로 적군을 공격합니다. [공격력 {2}]".format(
+        name, location, damage))
+
+
+attack(name, "1시", damage)
+attack(tank_name, "1시", tank_damage)
+tank2_name = "탱크2"
+tank2_hp = 150
+tank2_damage = 35
+# 중복 소스
+print("{0} 유닛이 생성되었습니다".format(tank2_name))
+print("체력 {0}, 공격력 {1}\n".format(tank2_hp, tank2_damage))
+attack(tank_name, "1시", tank2_damage)
+
+# 1)
+
+
+class Unit:
+    def __init__(self, name, hp, damage):  # a)
+        self.name = name
+        self.hp = hp
+        self.damage = damage
+        print("{0} 유닛이 생성 되었습니다.".format(self.name))
+        print("체력 {0}, 공격력 {1}".format(self.hp, self.damage))
+
+
+marine1 = Unit("마린", 40, 5)
+marine2 = Unit("마린", 40, 5)
+tank1 = Unit("탱크", 150, 35)
