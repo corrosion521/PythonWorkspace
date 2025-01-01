@@ -1260,4 +1260,4 @@ battlecruiser = FlyableAttackUnit("배틀 크루저", 500, 25, 3)
 
 # 메소드 오버로딩 후
 vulture.move("11시")
-battlecruiser.move("9시")
+battlecruiser.move("9시")  # 공중유닛이동이 지상유닛 이동을 덮어씀(override)
