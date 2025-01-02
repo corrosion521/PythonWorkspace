@@ -1049,8 +1049,8 @@ print(sample(lst,1)) # 랜덤뽑기 4
 당신의 회사에서는 매주 1회 작성해야 하는 보고서가 있습니다.
 보고서는 항상 아래와 같은 형태로 출력되어야 합니다.
 
-- X 주차 주간보고 - 
-부서 : 
+- X 주차 주간보고 -
+부서 :
 이름 :
 업무 요약 :
 
@@ -1070,10 +1070,10 @@ print(sample(lst,1)) # 랜덤뽑기 4
 <처리>
 요약 : for문 + file write
 설계 :
-1. 50주차까지 숫자 달라짐 (제목, 내용의 ~주차) // for 1 ~50 
+1. 50주차까지 숫자 달라짐 (제목, 내용의 ~주차) // for 1 ~50
 1) 보고서 파일 내용 WRITE // WITH pickle dump
 +확인용
-2)  
+2)
 """
 
 # # 1
@@ -1114,6 +1114,15 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # 4) 상속 : 타 클래스의 멤버변수, 메소드를 받음 (받는 쪽은 자식클래스, 그 역은 부모클래스)
 # 5) 다중상속 : 여러 부모클래스를 상속받음.
 # ex) Unit <- AttackUnit, Flyable.     AttackUnit, Flyabnle <- FlyableAttackUnit
+# 6) 메서드 오버라이드
+# ex) Unit(move) <- AttackUnit, Flyable.     AttackUnit, Flyabnle <- FlyableAttackUnit(move 재정의)
+# 7) pass : 아무것도 안함.예비 공간
+# 8) super :
+# a) self사용안하고 부모클래스 지시 가능
+# b) 단, 다중 상속일 경우는 지양(첫번째 인자만 지시 가능)
+# 9) 유닛 추가 - 총 유닛수 7개 실질적인 개체는 마린, 탱크, 레이스
+# 10) 게임
+# a) isinstance : 해당 객체가 그 클래스가맞는지
 
 # # 0)
 # # 마린 : 공격 유닛, 군인. 총을 쏠 수 있음
@@ -1150,114 +1159,307 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # print("체력 {0}, 공격력 {1}\n".format(tank2_hp, tank2_damage))
 # attack(tank_name, "1시", tank2_damage)
 
-# 1)
-# 일반 유닛
-class Unit:
-    def __init__(self, name, hp, speed):  # a)
-        self.name = name  # 멤버변수 : self.name, hp, ..
-        self.hp = hp
-        self.speed = speed
+# # 1)
+# # 일반 유닛
+# from random import *
+# class Unit:
+#     def __init__(self, name, hp, speed):  # a)
+#         self.name = name  # 멤버변수 : self.name, hp, ..
+#         self.hp = hp
+#         self.speed = speed
+#         print("{0} 유닛이 생성되었습니다".format(name))
 
-    def move(self, location):
-        print("[지상 유닛 이동]")
-        print("{0} : {1} 방향으로 이동합니다. [속도 {2}]".format(
-            self.name, location, self.speed))
+#     def move(self, location):
+#         print("{0} : {1} 방향으로 이동합니다. [속도 {2}]".format(
+#             self.name, location, self.speed))
 
-
-# marine1 = Unit("마린", 40, 5)
-# marine2 = Unit("마린", 40, 5)
-# tank1 = Unit("탱크", 150, 35)
-
-# # 2)
-# # 레이스 : 공중유닛, 비행기. 클로킹(상대방에게 보이지 않음)
-# wraith1 = Unit("레이스", 80, 5)
-# print("유닛 이름 :{0}, 공격력 :{1}".format(wraith1.name, wraith1.damage))
-
-# # 마인드 컨트롤 : 상대방 유닛을 내 것으로 만드는 것 (빼앗음)
-# wraith2 = Unit("레이스", 80, 5)
-# # a.
-# wraith2.clocking = True
-
-# if wraith2.clocking == True:
-#     print("{0} 는 현재 클로킹 상대입니다.".format(wraith2.name))
-
-# # 에러 발생
-# if wraith1.clocking == True:
-#     print("{0} 는 현재 클로킹 상대입니다.".format(wraith2.name))
-
-# 3)
-# 4)
-# 공격 유닛
-class AttackUnit(Unit):
-    def __init__(self, name, hp, speed, damage):
-        # 4)
-        # self.name = name
-        # self.hp = hp
-        Unit.__init__(self, name, hp, speed)
-        self.damage = damage
-
-    def attack(self, location):
-        print("{0} : {1} 방향으로 적군을 공격 합니다. [공격력 {2}]".format(
-            self.name, location, self.damage))
-
-    def damaged(self, damage):
-        print("{0} : {1} 데미지를 입었습니다.".format(self.name, damage))
-        self.hp -= damage
-        print("{0} : 현재 체력은 {1}입니다".format(self.name, self.hp))
-        if self.hp <= 0:
-            print("{0} : 파괴되었습니다.".format(self.name))
+#     def damaged(self, damage):
+#         print("{0} : {1} 데미지를 입었습니다.".format(self.name, damage))
+#         self.hp -= damage
+#         print("{0} : 현재 체력은 {1}입니다".format(self.name, self.hp))
+#         if self.hp <= 0:
+#             print("{0} : 파괴되었습니다.".format(self.name))
 
 
-# # 파이어뱃 : 공격 유닛, 화염방사기.
-# firebat1 = AttackUnit("파이어뱃", 50, 16)
-# firebat1.attack("5시")
+# # marine1 = Unit("마린", 40, 5)
+# # marine2 = Unit("마린", 40, 5)
+# # tank1 = Unit("탱크", 150, 35)
 
-# # 공격 2번 받는다고 가정
-# firebat1.damaged(25)
-# firebat1.damaged(25)
+# # # 2)
+# # # 레이스 : 공중유닛, 비행기. 클로킹(상대방에게 보이지 않음)
+# # wraith1 = Unit("레이스", 80, 5)
+# # print("유닛 이름 :{0}, 공격력 :{1}".format(wraith1.name, wraith1.damage))
 
+# # # 마인드 컨트롤 : 상대방 유닛을 내 것으로 만드는 것 (빼앗음)
+# # wraith2 = Unit("레이스", 80, 5)
+# # # a.
+# # wraith2.clocking = True
 
-# 드랍쉽 : 공중 유닛, 수송기. 마린 / 파이어뱃/ 탱크 등을 수송. 공격 X
-# 날 수 있는 기능을 가진 클래스
-class Flyable:
-    def __init__(self, flying_speed):
-        self.flying_speed = flying_speed
+# # if wraith2.clocking == True:
+# #     print("{0} 는 현재 클로킹 상대입니다.".format(wraith2.name))
 
-#    메소드 오버라이딩
-    def fly(self, name, location):
-        print("{0} : {1} 방향으로 날아갑니다. [속도 {2}]".format(
-            name, location, self.flying_speed))
+# # # 에러 발생
+# # if wraith1.clocking == True:
+# #     print("{0} 는 현재 클로킹 상대입니다.".format(wraith2.name))
 
-# 5)
-# 공중 공격 유닛 클래스
+# # 3)
+# # 4)
+# # 공격 유닛
+# class AttackUnit(Unit):
+#     def __init__(self, name, hp, speed, damage):
+#         # 4)
+#         # self.name = name
+#         # self.hp = hp
+#         Unit.__init__(self, name, hp, speed)
+#         self.damage = damage
 
-
-class FlyableAttackUnit(AttackUnit, Flyable):
-    def __init__(self, name, hp, damage, flying_speed):
-        AttackUnit.__init__(self, name, hp, 0, damage)  # 지상 speed 0
-        Flyable.__init__(self, flying_speed)
-
-    def move(self, location):
-        print("[공중 유닛 이동]")
-        self.fly(self.name, location)
-
-
-# # 발키리 : 공중 공격 유닛, 한 번에 14발 미사일 발사
-# valkyrie = FlyableAttackUnit("발키리", 200, 6, 5)
-# valkyrie.fly(valkyrie.name, "3시")
+#     def attack(self, location):
+#         print("{0} : {1} 방향으로 적군을 공격 합니다. [공격력 {2}]".format(
+#             self.name, location, self.damage))
 
 
-# 6)
-# 벌쳐 : 지상유닛, 기동성이 좋음.
-vulture = AttackUnit("벌쳐", 80, 10, 20)
+# # # 파이어뱃 : 공격 유닛, 화염방사기.
+# # firebat1 = AttackUnit("파이어뱃", 50, 16)
+# # firebat1.attack("5시")
 
-# 배틀 크루저 : 공중 유닛, 체력 높고 공격력 높음
-battlecruiser = FlyableAttackUnit("배틀 크루저", 500, 25, 3)
+# # # 공격 2번 받는다고 가정
+# # firebat1.damaged(25)
+# # firebat1.damaged(25)
 
-# 매번 지상유닛인지 공중유닛인지 확인하고 그에 따라 move, fly를 써야하는 불편함이 있음
-# vulture.move("11시")
-# battlecruiser.fly(battlecruiser.name, "9시")
 
-# 메소드 오버로딩 후
-vulture.move("11시")
-battlecruiser.move("9시")  # 공중유닛이동이 지상유닛 이동을 덮어씀(override)
+# # 드랍쉽 : 공중 유닛, 수송기. 마린 / 파이어뱃/ 탱크 등을 수송. 공격 X
+# # 날 수 있는 기능을 가진 클래스
+# class Flyable:
+#     def __init__(self, flying_speed):
+#         self.flying_speed = flying_speed
+
+# #    메소드 오버라이딩
+#     def fly(self, name, location):
+#         print("{0} : {1} 방향으로 날아갑니다. [속도 {2}]".format(
+#             name, location, self.flying_speed))
+
+# # 5)
+# # 공중 공격 유닛 클래스
+
+
+# class FlyableAttackUnit(AttackUnit, Flyable):
+#     def __init__(self, name, hp, damage, flying_speed):
+#         AttackUnit.__init__(self, name, hp, 0, damage)  # 지상 speed 0
+#         Flyable.__init__(self, flying_speed)
+
+#     def move(self, location):
+#         self.fly(self.name, location)
+
+
+# # # 발키리 : 공중 공격 유닛, 한 번에 14발 미사일 발사
+# # valkyrie = FlyableAttackUnit("발키리", 200, 6, 5)
+# # valkyrie.fly(valkyrie.name, "3시")
+
+
+# # # 6)
+# # # 벌쳐 : 지상유닛, 기동성이 좋음.
+# # vulture = AttackUnit("벌쳐", 80, 10, 20)
+
+# # # 배틀 크루저 : 공중 유닛, 체력 높고 공격력 높음
+# # battlecruiser = FlyableAttackUnit("배틀 크루저", 500, 25, 3)
+
+# # # 매번 지상유닛인지 공중유닛인지 확인하고 그에 따라 move, fly를 써야하는 불편함이 있음
+# # # vulture.move("11시")
+# # # battlecruiser.fly(battlecruiser.name, "9시")
+
+# # # 메소드 오버로딩 후
+# # vulture.move("11시")
+# # battlecruiser.move("9시")  # 공중유닛이동이 지상유닛 이동을 덮어씀(override)
+
+# # # 7)
+# # class BuildingUnit(Unit):
+# #     def __init__(self, name, hp, location):
+# #         pass
+
+
+# # # 서플라이 디폿 : 건물, 1개 건물 = 8유닛.
+# # supplay_depot = BuildingUnit("서플라이 디폿", 500, "7시")
+
+
+# # def game_start():
+# #     print("[알림] 새로운 게임을 시작합니다.")
+
+
+# # def game_over():
+# #     pass
+
+
+# # game_start()
+# # game_over()
+
+# # 8)
+# # class BuildingUnit(Unit):
+# #     def __init__(self, name, hp, location):
+# #         # Unit.__init__(name, hp, 0) #a)
+# #         super().__init(name, hp, 0)
+# #         self.location = location
+
+# # # b)
+
+# # ~ 테스트 유닛
+# # class Unit:
+# #     def __init__(self):
+# #         print("Unit 생성자")
+
+
+# # class Flyable:
+# #     def __init__(self):
+# #         print("Flyable 생성자")
+
+
+# # class FlyableUnit(Flyable, Unit):
+# #     def __init__(self):
+# #         Unit.__init__(self)
+# #         Flyable.__init__(self)
+
+
+# # # 드랍쉽
+# # dropship = FlyableUnit()
+
+# # 마린
+# class Marine(AttackUnit):
+#     def __init__(self):
+#         AttackUnit.__init__(self, "마린", 40, 1, 5)
+#     # 스팀팩 : 일정 시간 동안 이동 및 공격 속도를 증가, 체력 10감소
+
+#     def stimpack(self):
+#         if self.hp > 10:
+#             self.hp -= 10
+#             print("{0} : 스팀팩을 사용합니다. (hp 10감소)".format(self.name))
+#         else:
+#             print("{0} : 체력이 부족하여 스팀팩을 사용하지 않습니다".format(self.name))
+
+# # 탱크
+
+
+# class Tank(AttackUnit):
+#     # 시즈모드 : 탱크를 지상에 고정시켜, 더 높은 파워로 공격 가능. 이동 불가.
+#     seize_developed = False  # 시즈모드 개발 여부
+
+#     def __init__(self):
+#         AttackUnit.__init__(self, "탱크", 150, 1, 35)
+#         self.seize_mode = False
+
+#     def set_seize_mode(self):
+#         if Tank.seize_developed == False:
+#             return
+#         # 현재 시즈모드가 아닐 때 -> 시즈모드
+#         if self.seize_mode == False:
+#             print("{0} : 시즈모드로 전환합니다".format(self.name))
+#             self.damage *= 2
+#             self.seize_mode = True
+#         # 현재 시즈모드일 때 -> 해제
+#         else:
+#             print("{0} : 시즈모드로 해제합니다".format(self.name))
+#             self.damage /= 2
+#             self.seize_mode = False
+
+
+# # 레이스
+
+
+# class Wraith(FlyableAttackUnit):
+#     def __init__(self):
+#         FlyableAttackUnit.__init__(self, "레이스", 80, 20, 5)
+#         self.clocked = False  # 클로킹 모드 (해제 상태)
+
+#     def clocking(self):
+#         if self.clocked == True:  # 클로킹 모드 -> 모드 해제
+#             print("{0} : 클로킹 모드 해제합니다".format(self.name))
+#         else:  # 클로킹 모드 해제-> 모드 설정
+#             print("{0} : 클로킹 모드 설정 합니다".format(self.name))
+#             self.clocked = True
+
+
+# # 10)
+
+
+# def game_start():
+#     print("[알림] 새로운 게임을 시작합니다.")
+
+
+# def game_over():
+#     print("Player : gg")
+#     print("[Player] 님이 게임에서 퇴장하셨습니다.")
+
+
+# # 실제 게임 진행
+# game_start()
+
+# # 마린 3기 생성
+# m1 = Marine()
+# m2 = Marine()
+# m3 = Marine()
+
+# # 탱크 2기 생성
+# t1 = Tank()
+# t2 = Tank()
+
+# # 레이스 1기 생성
+# w1 = Wraith()
+
+# # 유닛 일괄 관리
+# attack_units = []
+# attack_units.append(m1)
+# attack_units.append(m2)
+# attack_units.append(m3)
+# attack_units.append(t1)
+# attack_units.append(t2)
+# attack_units.append(w1)
+
+# # 전군 이동
+# for unit in attack_units:
+#     unit.move("1시")
+
+# # 탱크 시즈모드 개발
+# Tank.seize_developed = True
+# print("[알림] 탱크 시즈모드 개발이 완료되었습니다.")
+
+# # 공격 모드 중비 (마린 : 스팀팩, 탱크 : 시즈모드 , 레이스 : 클로킹)
+# for unit in attack_units:
+#     if isinstance(unit, Marine):
+#         unit.stimpack()
+#     elif isinstance(unit, Tank):
+#         unit.set_seize_mode()
+#     elif isinstance(unit, Wraith):
+#         unit.clocking()
+# # 전군 공격
+# for unit in attack_units:
+#     unit.attack("1시")
+
+# # 전군 피해
+# for unit in attack_units:
+#     unit.damaged(randint(5, 21))  # 공격은 랜덤으로 받음 (5~20)
+
+# # 게임 종료
+# game_over()
+
+'''
+# QUIZ
+주어진 코드를 활용하여 부동산 프로그램을 작성하시오.
+
+(출력 예제)
+총 3대의 매물이 있습니다.
+강남 아파트 매매 10억 2010년
+마포 오피스텔 전세 5억 2007년
+송파 빌라 월세 500/50 2000년
+
+
+'''
+
+# [코드]
+
+
+class House:
+    # 매물 초기화
+    def __init__(self, location, house_type, deal_type, price, completion_year):
+        pass
+    # 매물 정보 표시
+
+    def show_detail(self):
+        pass
