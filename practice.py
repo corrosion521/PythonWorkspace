@@ -1439,7 +1439,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # # 게임 종료
 # game_over()
 
-'''
+"""
 # QUIZ
 주어진 코드를 활용하여 부동산 프로그램을 작성하시오.
 
@@ -1449,17 +1449,105 @@ print(sample(lst,1)) # 랜덤뽑기 4
 마포 오피스텔 전세 5억 2007년
 송파 빌라 월세 500/50 2000년
 
-
-'''
+- 내역
+    - 요약 : 클래스 코드 작성하여 출력
+    - 해석 
+- 처리
+    - 요약
+    - 설계:
+        1. parameter이용하여 매물 초기화에 대입
+        2. 매물 정보 표시에서 멤버변수 이용하여 출력
+        1) 월세만 형식 다름-조건문+ 튜플
+        3. 인스턴스화 및 매물 정보 표시
+        4. 인스턴스 담아 반복문 출력
+"""
 
 # [코드]
 
 
-class House:
-    # 매물 초기화
-    def __init__(self, location, house_type, deal_type, price, completion_year):
-        pass
-    # 매물 정보 표시
+# class House:
+#     # 매물 초기화,#1
+#     def __init__(self, location, house_type, deal_type, price, completion_year):
+#         self.location = location
+#         self.house_type = house_type
+#         self.deal_type = deal_type
+#         self.price = price
+#         self.completion_year = completion_year
 
-    def show_detail(self):
-        pass
+#     # 매물 정보 표시,#2
+#     def show_detail(self):
+#         # 1)
+#         if self.deal_type == "월세":
+#             print(
+#                 "{0} {1} {2} {3}/{4} {5}년".format(
+#                     self.location,
+#                     self.house_type,
+#                     self.deal_type,
+#                     self.price[0],
+#                     self.price[1],
+#                     self.completion_year,
+#                 )
+#             )
+#         else:
+#             print(
+#                 "{0} {1} {2} {3} {4}년".format(
+#                     self.location,
+#                     self.house_type,
+#                     self.deal_type,
+#                     self.price,
+#                     self.completion_year,
+#                 )
+#             )
+
+
+# # 3
+# s1 = House("강남", "아파트", "매매", "10억", 2010)
+# s2 = House("마포", "오피스텔", "전세", "5억", 2010)
+# s3 = House("송파", "빌라", "월세", [500, 50], 2010)
+
+# # 4
+# all = []
+# all.append(s1)
+# all.append(s2)
+# all.append(s3)
+
+# print("총 {0}대의 매물이 있습니다.".format(len(all)))
+
+# for sale in all:
+#     sale.show_detail()
+
+# 정답과 거의 유사함.
+
+# <예외처리>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 1.예외처리 (try~exept):
+# 1) 에러잡고 분기처리.
+# 2) 에러는 여러가지임(ValueError, IndexError, ZeroDivisionError 등..).
+# 3) Exception에 에러가 들어감
+# 2. 에러 발생시키기(raise) : 조건에 따른 에러 발생시키기
+
+# 1.
+# 1)
+# try:
+#     print("나누기 전용 계산기입니다.")
+#     nums = []
+#     nums.append(int(input("첫 번째 숫자를 입력하세요 : ")))
+#     nums.append(int(input("두 번째 숫자를 입력하세요 : ")))
+#     # nums.append(int(nums[0] / nums[1]))
+#     print("{0} / {1} = {2}".format(nums[0], nums[1], nums[2]))
+# except ValueError:  # 2)
+#     print("에러! 잘못된 값을 입력했습니다.")
+# except ZeroDivisionError as err:
+#     print(err)
+# except Exception as err:  # 3)
+#     print("에러! : {0}".format(err))
+
+# 2.
+try:
+    print("한 자리 숫자 나누기 전용 계산기입니다.")
+    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+    num2 = int(input("두 번째 숫자를 입력하세요 : "))
+    if num1 >= 10 or num2 >= 10:
+        raise ValueError
+    print("{0} / {1} = {2}".format(num1, num2, int(num1 / num2)))
+except ValueError:
+    print("잘못된 값을 입력했습니다. 한 자리 숫자만 입력하세요.")
