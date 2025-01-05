@@ -1111,7 +1111,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # 2) 멤버변수 외부 접근 가능
 # a. 외부에서 객체의 멤버변수 확장 가능
 # 3) 메소드
-# 4) 상속 : 타 클래스의 멤버변수, 메소드를 받음 (받는 쪽은 자식클래스, 그 역은 부모클래스)
+# 4) 상속 : class par에 넣음. 타 클래스의 멤버변수, 메소드를 받음 (받는 쪽은 자식클래스, 그 역은 부모클래스)
 # 5) 다중상속 : 여러 부모클래스를 상속받음.
 # ex) Unit <- AttackUnit, Flyable.     AttackUnit, Flyabnle <- FlyableAttackUnit
 # 6) 메서드 오버라이드
@@ -1524,6 +1524,10 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # 2) 에러는 여러가지임(ValueError, IndexError, ZeroDivisionError 등..).
 # 3) Exception에 에러가 들어감
 # 2. 에러 발생시키기(raise) : 조건에 따른 에러 발생시키기
+# 3. 사용자 정의 예외처리 : class 기반 std 에러
+# 1) __str__ 메서드 : 클래스 객체 출력시 어떤 문자열로 표현될지 정의.
+# 4. finally : 예외처리문(try~except)에서 무조건 실행(에러 발생 시에도 실행됨)
+
 
 # 1.
 # 1)
@@ -1541,13 +1545,95 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # except Exception as err:  # 3)
 #     print("에러! : {0}".format(err))
 
-# 2.
-try:
-    print("한 자리 숫자 나누기 전용 계산기입니다.")
-    num1 = int(input("첫 번째 숫자를 입력하세요 : "))
-    num2 = int(input("두 번째 숫자를 입력하세요 : "))
-    if num1 >= 10 or num2 >= 10:
-        raise ValueError
-    print("{0} / {1} = {2}".format(num1, num2, int(num1 / num2)))
-except ValueError:
-    print("잘못된 값을 입력했습니다. 한 자리 숫자만 입력하세요.")
+
+# # # 3.
+# class BigNumberError(Exception):
+#     def __init__(self, msg):
+#         self.msg = msg
+
+#     # 3.1)
+#     def __str__(self):
+#         return self.msg
+
+
+# # 2.
+# try:
+#     print("한 자리 숫자 나누기 전용 계산기입니다.")
+#     num1 = int(input("첫 번째 숫자를 입력하세요 : "))
+#     num2 = int(input("두 번째 숫자를 입력하세요 : "))
+#     if num1 >= 10 or num2 >= 10:
+#         # raise ValueError
+#         raise BigNumberError("입력값 : {0}, {1}".format(num1, num2))  # 3.
+#     print("{0} / {1} = {2}".format(num1, num2, int(num1 / num2)))
+# except ValueError:
+#     print("잘못된 값을 입력했습니다. 한 자리 숫자만 입력하세요.")
+# except BigNumberError as err:
+#     print("에러가 발생하였습니다. 한 자리 숫자만 입력하세요.")
+#     print(err)  # 3.1)
+# finally:  # 4
+#     print("계산기를 이용해 주셔서 감사합니다.")
+
+
+"""
+<QUIZ>
+동네에 항상 대기 손님이 있는 맛있는 치킨집이 있습니다.
+대기 손님의 치킨 요리 시간을 줄이고자 자동 주문 시스템을 제작하였습니다.
+시스템 코드를 확인하고 적절한 예외처리 구문을 넣으시오.
+
+조건 1: 1보다 작거나 숫자가 아닌 입력값이 들어올 때는 ValueError로 처리
+        출력 메시지 : "잘못된 값을 입력하였습니다."
+조건 2 : 대기 손님이 주문할 수 있는 총 치킨량은 10마리로 한정
+        치킨 소진 시 사용자 정의 에러[SoldOutError]주문을 발생시키고 프로그램 종료
+        출력 메시지 : "재고가 소진되어 더 이상 주문을 받지 않습니다."
+
+- 내역
+    - 요약 : 예외처리문 추가
+    - 해석 : 
+        1. 적절한 예외처리 구문을 넣으시오.// try~except염두
+        2. 1보다 작거나 숫자가 아닌 입력값이 들어올 때는 ValueError로 처리 // std err
+        3. 치킨 소진 시 사용자 정의 에러[SoldOutError]주문을 발생시키고 프로그램 종료 // cbo err 설계. break
+- 처리
+    - 요약
+    - 설계
+        1. 반복문 안 try~except
+        2. 조건문 (1<) raise ValueError 
+        3. cbo err 설계(par - chicken) 및 chiken == 0 -> raise err
+"""
+
+
+# 2
+class SoldOutError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+
+chicken = 10
+waiting = 1  # 홀 안에는 현재 만석. 대기번호 1부터 시작.
+while True:
+    # 1
+    try:
+        print("[남은 치킨 : {0}]".format(chicken))
+        order = int(input("치킨 몇 마리 주문하시겠습니까?"))
+        if order > chicken:  # 남은 치킨보다 주문량이 많을때
+            print("재료가 부족합니다.")
+        elif order <= 0:  # 2
+            raise ValueError
+        else:
+            print(
+                "[대기번호 {0}] {1}마리 주문이 완료되었습니다.".format(waiting, order)
+            )
+            waiting += 1
+            chicken -= order
+        # 3
+        if chicken == 0:
+            raise SoldOutError("재고가 소진되어 더 이상 주문을 받지 않습니다.")  # 2
+    except ValueError:
+        print("잘못된 값을 입력하였습니다.")
+    except SoldOutError as err:
+        print(err)
+        break
+
+# 정답비교 : 비슷은 하나, 문제 해석이 잘못됨(재료 소진 및 글자 자체를 제대로 안읽음)
