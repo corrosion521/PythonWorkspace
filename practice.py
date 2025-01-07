@@ -1451,7 +1451,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 
 - 내역
     - 요약 : 클래스 코드 작성하여 출력
-    - 해석 
+    - 해석
 - 처리
     - 요약
     - 설계:
@@ -1588,7 +1588,7 @@ print(sample(lst,1)) # 랜덤뽑기 4
 
 - 내역
     - 요약 : 예외처리문 추가
-    - 해석 : 
+    - 해석 :
         1. 적절한 예외처리 구문을 넣으시오.// try~except염두
         2. 1보다 작거나 숫자가 아닌 입력값이 들어올 때는 ValueError로 처리 // std err
         3. 치킨 소진 시 사용자 정의 에러[SoldOutError]주문을 발생시키고 프로그램 종료 // cbo err 설계. break
@@ -1596,44 +1596,134 @@ print(sample(lst,1)) # 랜덤뽑기 4
     - 요약
     - 설계
         1. 반복문 안 try~except
-        2. 조건문 (1<) raise ValueError 
+        2. 조건문 (1<) raise ValueError
         3. cbo err 설계(par - chicken) 및 chiken == 0 -> raise err
 """
 
 
 # 2
-class SoldOutError(Exception):
-    def __init__(self, msg):
-        self.msg = msg
+# class SoldOutError(Exception):
+#     def __init__(self, msg):
+#         self.msg = msg
 
-    def __str__(self):
-        return self.msg
+#     def __str__(self):
+#         return self.msg
 
 
-chicken = 10
-waiting = 1  # 홀 안에는 현재 만석. 대기번호 1부터 시작.
-while True:
-    # 1
-    try:
-        print("[남은 치킨 : {0}]".format(chicken))
-        order = int(input("치킨 몇 마리 주문하시겠습니까?"))
-        if order > chicken:  # 남은 치킨보다 주문량이 많을때
-            print("재료가 부족합니다.")
-        elif order <= 0:  # 2
-            raise ValueError
-        else:
-            print(
-                "[대기번호 {0}] {1}마리 주문이 완료되었습니다.".format(waiting, order)
-            )
-            waiting += 1
-            chicken -= order
-        # 3
-        if chicken == 0:
-            raise SoldOutError("재고가 소진되어 더 이상 주문을 받지 않습니다.")  # 2
-    except ValueError:
-        print("잘못된 값을 입력하였습니다.")
-    except SoldOutError as err:
-        print(err)
-        break
+# chicken = 10
+# waiting = 1  # 홀 안에는 현재 만석. 대기번호 1부터 시작.
+# while True:
+#     # 1
+#     try:
+#         print("[남은 치킨 : {0}]".format(chicken))
+#         order = int(input("치킨 몇 마리 주문하시겠습니까?"))
+#         if order > chicken:  # 남은 치킨보다 주문량이 많을때
+#             print("재료가 부족합니다.")
+#         elif order <= 0:  # 2
+#             raise ValueError
+#         else:
+#             print(
+#                 "[대기번호 {0}] {1}마리 주문이 완료되었습니다.".format(waiting, order)
+#             )
+#             waiting += 1
+#             chicken -= order
+#         # 3
+#         if chicken == 0:
+#             raise SoldOutError("재고가 소진되어 더 이상 주문을 받지 않습니다.")  # 2
+#     except ValueError:
+#         print("잘못된 값을 입력하였습니다.")
+#     except SoldOutError as err:
+#         print(err)
+#         break
 
-# 정답비교 : 비슷은 하나, 문제 해석이 잘못됨(재료 소진 및 글자 자체를 제대로 안읽음)
+# # 정답비교 : 비슷은 하나, 문제 해석이 잘못됨(재료 소진 및 글자 자체를 제대로 안읽음)
+
+# <모듈과 패키지>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 1. 모듈 : ex) 자동차의 타이어 마모시 타이어만 교체. 부품만 교체가능하면 유지보수,재사용 쉬움
+# 1) 확장자 : .py
+# 2) 파이썬 기준 : 함수정의 , 클래스 담음
+# 3) import 방식
+# a) 모듈.
+# b) 그냥 / / from~import 사용시, 모듈 내 클래스 메서드(ex. from travel.thailand import ThailandPackage)사용 가능
+# c) alias
+# d) 모듈 내 특정 함수만
+# e) d)인데 거기에 alis - price지만 price함수가 아니라, price_soldier임.
+# 2. 패키지 : 모듈을 담는 파일(thailand, vietnam 등 모듈을 담는 travel 패키지)
+# 1) 1-3-b 참조
+# 3. __all__ : 특정 모듈만 정의할 수 있음
+# 4. 모듈 직접 실행(__name__ == "__main__") : 모듈내에서 매직메소드(__name~~)를 사용하여,
+#  모듈파일 직접실행하는경우, 외부호출하는 경우에 대해 분기를 설정할 수 있다.
+# 5. 패키지, 모듈 위치(inspect-getfile) : 파이썬 라이브러리 모듈인지, 사용자 생성 모듈인지 등 위치 파악 가능
+# 6. pip install (패키지 설치) : 딴 사람거 가져다 쓰기 (ex. pypi.org). 터미널에 pip install~입력
+# 1) 설치 : pip install beautifulsoup4
+# 2) 버전, 패키지 리스트 : pip list
+# 3) 정보 : pip show beautifulsoup4
+# 4) 최신화 : pip install --upgrade beautifulsoup4
+# 5) 삭제 : pip uninstall beautifulsoup4
+# 7. 내장함수 :
+
+# 1.
+# from theater_module import price, price_morning # d)
+# from theater_module import * # b)
+# import theater_module  # 3-a
+# import theater_module as mv # c)
+
+# theater_module.price(3)  # 3명이서 영화 보러 갔을 때 가격
+# theater_module.price_morning(4)  # 4명이서 조조 할인 영화 보러 갔을 때
+# theater_module.price_soldier(5)  # 5명이서 군인 할인 영화 보러 갔을 때
+
+# mv.price_morning(3)
+
+# price(3)
+# price_morning(4)
+# price_morning(5)
+
+# from theater_module import price_soldier as price # e)
+# price(5)
+
+# 2.
+
+# import travel. thailand
+# trip_to = travel.thailand.ThailandPackage()
+# trip_to.detail()
+
+# 3.
+# from travel import *
+# trip_to = vietnam.VietnamPackage()
+# trip_to.detail()
+# # 안됨 not defined. init.py에서 vietnam 모듈만 정의하기에
+# trip_to2 = thailand.ThailandPackage()
+
+# 4.
+# thailand.py에서 직접실행
+# practice 실행
+# from travel import thailand
+# trip_to = thailand.ThailandPackage()
+# trip_to.detail()
+
+# 5.
+# from travel import thailand
+# import inspect
+# import random
+
+# # ~ sky44\AppData\Local\Programs\Python\Python38\lib\random.py
+# print(inspect.getfile(random))
+# # ~sky44\OneDrive\바탕 화면\정지오\PythonWorkspace\travel\thailand.py
+# print(inspect.getfile(thailand))
+
+# 6.
+# from bs4 import BeautifulSoup
+# soup = BeautifulSoup("<p>Some<b>bad<i>HTML")
+# print(soup.prettify())
+
+# 7.
+# input
+
+import random  # 1)
+import inspect
+import pickle
+# 1)
+# dir : 어떤 객체를 넘겨줬을 때 그 객체가 어떤 변수와 함수를 가지고 있는지 표시
+print(dir())  # 1) x
+print(dir())  # 1) 추가
+print(dir(random))
