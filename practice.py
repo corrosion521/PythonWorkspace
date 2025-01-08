@@ -1660,7 +1660,17 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # 3) 정보 : pip show beautifulsoup4
 # 4) 최신화 : pip install --upgrade beautifulsoup4
 # 5) 삭제 : pip uninstall beautifulsoup4
-# 7. 내장함수 :
+# 7. 내장함수 : 따로 import 할 필요없이 사용가능한 함수 (ex. input, dir, pickle)
+# 1) dir : 어떤 객체를 넘겨줬을 때 그 객체가 어떤 변수와 함수를 가지고 있는지 표시
+#          외장함수는 import했을 때 하나씩 추가됨을 확인 가능
+# 2) 모듈객체(random), 변수객체 등에서 사용가능한 내장함수 파악 가능.
+# 3) "내장함수" "https://docs.python.org/3/library/functions.html"
+# 7. 외장함수 : 따로 import 할 필요없이 사용가능한 함수 (ex. random)
+# 1) glob : 경로 내 폴더/ 파일 목록 조회(윈도우 dir). practic.py안 py파일 다 보여줌
+# 2) os : 운영체제에서 제공하는 기본 기능
+# 3) time : 시간관련 함수
+# 4) datetime : 날짜 관련 함수
+# 5) time delta : 날짜 사이 간격
 
 # 1.
 # from theater_module import price, price_morning # d)
@@ -1717,13 +1727,82 @@ print(sample(lst,1)) # 랜덤뽑기 4
 # print(soup.prettify())
 
 # 7.
-# input
 
-import random  # 1)
-import inspect
-import pickle
 # 1)
-# dir : 어떤 객체를 넘겨줬을 때 그 객체가 어떤 변수와 함수를 가지고 있는지 표시
-print(dir())  # 1) x
-print(dir())  # 1) 추가
-print(dir(random))
+# print(dir())
+# import random
+# print(dir())
+# import pickle
+# print(dir())
+
+# # 2)
+# print(dir(random))
+# lst = [1, 2, 3]
+# print(dir(lst))
+
+# name = "Jim"
+# print(dir(name))
+
+# # 1)
+# import glob
+# print(glob.glob("*.py"))
+
+# 2)
+# import os
+# print(os.getcwd) # 현 디렉토리
+
+# folder = "sample_dir"
+
+# if os.path.exists(folder):
+#     print("이미 존재하는 폴더입니다.")
+#     os.rmdir(folder)
+#     print(folder, "폴더를 삭제하였습니다.")
+# else:
+#     os.makedirs(folder)
+#     print(folder, "폴더를 생성하였습니다.")
+
+# print(os.listdir())
+
+# 3)
+# import datetime
+# import time
+# print(time.localtime())
+# print(time.strftime("%Y-%m-%d %H:%M:%S"))
+
+# # 4)
+# print("오늘 날짜는", datetime.date.today())
+
+# # 5)
+# today = datetime.date.today()  # 오늘 날짜저장
+# td = datetime.timedelta(days=100)  # 100일 저장
+# print("우리가 만난지 100일은", today+td)  # 오늘부터 100일후
+
+'''
+<Quiz>
+프로젝트 내에 나만의 시그니처를 남기는 모듈을 만드시오
+
+조건 : 모듈 파일명은 byme.py로 작성
+
+(모듈 사용 예제)
+import byme
+byme.sign()
+
+(출력 예제)
+이 프로그램은 나도 코딩에 의해 만들어졌습니다.
+유튜브 : http://youtube.com
+이메일 : nadocoding@gmail.com
+
+- 내역
+    - 요약 : 모듈만들어서 사용해봐라
+- 처리
+    - 요약 : 모듈에 외장함수 만들어서 사용
+    - 설계 :
+        1. byme.py 모듈 생성
+        2. 모듈 내 sign 메서드 생성 및 출력문 넣기
+        3. import 및 실행
+'''
+
+# 3)
+# 4)
+import bymee
+bymee.sign()
